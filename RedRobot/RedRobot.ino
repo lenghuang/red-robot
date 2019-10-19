@@ -86,12 +86,19 @@ void loop() {
     ps2x.read_gamepad(false, vibrate); //read controller and set large motor to spin at 'vibrate' speed
     
     vibrate = ps2x.Analog(PSAB_CROSS);  //this will set the large motor vibrate speed based on how hard you press the blue (X) button
-   
+
+     // half speed mode or turbo speed mode 
+    
     int left_spd  = (ps2x.Analog(PSS_LY)-127)*2-1;
     int right_spd = (ps2x.Analog(PSS_RY)-127)*2-1;
     if(left_spd < 0){
       motorFL.run(BACKWARD);
       motorBL.run(BACKWARD);
+      if(ps2x.Button(PSB_L3)){
+        left_spd = 20;
+      } else if(ps2x.Button(PSB_R3)){
+        left_spd = 256;
+      }
       motorFL.setSpeed(-left_spd);
       motorBL.setSpeed(-left_spd);
       Serial.println(-left_spd);
@@ -99,6 +106,11 @@ void loop() {
     else{
       motorFL.run(FORWARD);
       motorBL.run(FORWARD);
+      if(ps2x.Button(PSB_L3)){
+        left_spd = 20;
+      } else if(ps2x.Button(PSB_R3)){
+        left_spd = 256;
+      }
       motorFL.setSpeed(left_spd);
       motorBL.setSpeed(left_spd);
       Serial.println(left_spd);
@@ -106,6 +118,11 @@ void loop() {
     if(right_spd < 0){
       motorFR.run(BACKWARD);
       motorBR.run(BACKWARD);
+      if(ps2x.Button(PSB_L3)){
+        right_spd = 20;
+      } else if(ps2x.Button(PSB_R3)){
+        right_spd = 256;
+      }
       motorFR.setSpeed(-right_spd);
       motorBR.setSpeed(-right_spd);
       Serial.println(-right_spd);
@@ -113,6 +130,11 @@ void loop() {
     else{
       motorFR.run(FORWARD);
       motorBR.run(FORWARD);
+      if(ps2x.Button(PSB_L3)){
+        right_spd = 20;
+      } else if(ps2x.Button(PSB_R3)){
+        right_spd = 256;
+      }
       motorFR.setSpeed(right_spd);
       motorBR.setSpeed(right_spd);
       Serial.println(right_spd);
@@ -136,7 +158,6 @@ void loop() {
       Serial.println(strict_speed);
     }
   }  
-
   
     
   delay(50);  
