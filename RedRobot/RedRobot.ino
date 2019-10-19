@@ -92,67 +92,83 @@ void loop() {
     int left_spd  = (ps2x.Analog(PSS_LY)-127)*2-1;
     int right_spd = (ps2x.Analog(PSS_RY)-127)*2-1;
     if(left_spd < 0){
-      motorFL.run(BACKWARD);
-      motorBL.run(BACKWARD);
+      motorFL.run(FORWARD);
+      motorBL.run(FORWARD);
+      /*
       if(ps2x.Button(PSB_L3)){
         left_spd = 20;
       } else if(ps2x.Button(PSB_R3)){
         left_spd = 256;
       }
+      */
       motorFL.setSpeed(-left_spd);
       motorBL.setSpeed(-left_spd);
       Serial.println(-left_spd);
     }
     else{
-      motorFL.run(FORWARD);
-      motorBL.run(FORWARD);
+      motorFL.run(BACKWARD);
+      motorBL.run(BACKWARD);
+      /*
       if(ps2x.Button(PSB_L3)){
         left_spd = 20;
       } else if(ps2x.Button(PSB_R3)){
         left_spd = 256;
       }
+      */
       motorFL.setSpeed(left_spd);
       motorBL.setSpeed(left_spd);
       Serial.println(left_spd);
     }
     if(right_spd < 0){
-      motorFR.run(BACKWARD);
-      motorBR.run(BACKWARD);
+      motorFR.run(FORWARD);
+      motorBR.run(FORWARD);
+      /*
       if(ps2x.Button(PSB_L3)){
         right_spd = 20;
       } else if(ps2x.Button(PSB_R3)){
         right_spd = 256;
       }
+      */
       motorFR.setSpeed(-right_spd);
       motorBR.setSpeed(-right_spd);
       Serial.println(-right_spd);
     }
     else{
-      motorFR.run(FORWARD);
-      motorBR.run(FORWARD);
+      motorFR.run(BACKWARD);
+      motorBR.run(BACKWARD);
+      /*
       if(ps2x.Button(PSB_L3)){
         right_spd = 20;
       } else if(ps2x.Button(PSB_R3)){
         right_spd = 256;
       }
+      */
       motorFR.setSpeed(right_spd);
       motorBR.setSpeed(right_spd);
       Serial.println(right_spd);
     }  
    
-	 // strict speed for DPad 
-    int strict_speed = 200;
+    // strict speed for DPad 
+    int strict_speed = 50;
     
     if(ps2x.Button(PSB_PAD_UP)){
+      motorFR.run(FORWARD);
+      motorFL.run(FORWARD);
       motorBL.run(FORWARD);
       motorBR.run(FORWARD);
+      motorFR.setSpeed(strict_speed);
+      motorFL.setSpeed(strict_speed);
       motorBL.setSpeed(strict_speed);
       motorBR.setSpeed(strict_speed);
       Serial.println(strict_speed);
     } 
     if(ps2x.Button(PSB_PAD_DOWN)){
+      motorFR.run(BACKWARD);
+      motorFL.run(BACKWARD);
       motorBL.run(BACKWARD);
       motorBR.run(BACKWARD);
+      motorFR.setSpeed(strict_speed);
+      motorFL.setSpeed(strict_speed);
       motorBL.setSpeed(strict_speed);
       motorBR.setSpeed(strict_speed);
       Serial.println(strict_speed);
