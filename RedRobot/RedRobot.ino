@@ -86,6 +86,7 @@ void loop() {
     ps2x.read_gamepad(false, vibrate); //read controller and set large motor to spin at 'vibrate' speed
     
     vibrate = ps2x.Analog(PSAB_CROSS);  //this will set the large motor vibrate speed based on how hard you press the blue (X) button
+   
     int left_spd  = (ps2x.Analog(PSS_LY)-127)*2-1;
     int right_spd = (ps2x.Analog(PSS_RY)-127)*2-1;
     if(left_spd < 0){
@@ -116,7 +117,27 @@ void loop() {
       motorBR.setSpeed(right_spd);
       Serial.println(right_spd);
     }  
+   
+	 // strict speed for DPad 
+    int strict_speed = 200;
+    
+    if(ps2x.Button(PSB_PAD_UP)){
+      motorBL.run(FORWARD);
+      motorBR.run(FORWARD);
+      motorBL.setSpeed(strict_speed);
+      motorBR.setSpeed(strict_speed);
+      Serial.println(strict_speed);
+    } 
+    if(ps2x.Button(PSB_PAD_DOWN)){
+      motorBL.run(BACKWARD);
+      motorBR.run(BACKWARD);
+      motorBL.setSpeed(strict_speed);
+      motorBR.setSpeed(strict_speed);
+      Serial.println(strict_speed);
+    }
   }  
+
+  
     
   delay(50);  
 }
